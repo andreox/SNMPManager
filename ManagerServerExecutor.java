@@ -38,7 +38,7 @@ public class ManagerServerExecutor {
 		for ( int i = 0 ; i < num_of_hosts_get ; i++ ) {
 			
 			executor.execute(list_of_get_threads.get(i));
-			
+
 		}
 		
 		executor.execute(trap);
@@ -54,7 +54,6 @@ public class ManagerServerExecutor {
 		String line = "" ;
 		String splitBy = "," ;
 		String [] infos ;
-		ArrayList<OID> OID_list = new ArrayList<OID>() ;
 		
 		try {
 			
@@ -73,19 +72,20 @@ public class ManagerServerExecutor {
 			while ( ( line = br2.readLine()) != null ) {
 				
 				infos = line.split(splitBy) ;
-				OID_list.clear();
-				
+				ArrayList<OID> OID_list = new ArrayList<OID>() ;
+					
 				if ( infos.length > 1 ) { 
 					for ( int i = 1 ; i < infos.length ; i++ ) {
 					
 						OID temp_oid = new OID(infos[i]) ;
 						OID_list.add(temp_oid) ;
 					}
-					
 				}
+
 				UdpAddress temp = new UdpAddress(infos[0]) ;
 				IP_OID_Get_Mapping.put(temp, OID_list) ;
 			}
+			
 			
 		} catch( IOException e ) {
 			
